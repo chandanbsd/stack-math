@@ -1,74 +1,151 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Image, Platform, Button, TextInput, SafeAreaView, Text, View } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+export default function Calculator() {
+    const [res, setResult] = useState<number>(0);
+    const [operation, setOperation] = useState<string | null>(null);
+    const [display, setDisplay] = useState<string>("");
+
+    const calculateResult = (val: string) => {
+
+        setDisplay(display + " " + val + " ");
+
+        let isOperation: boolean = isNaN(Number(val));
+
+        if (isOperation) {
+            setOperation(val);
+        }
+        else {
+            let numberVal = Number(val);
+
+            if (operation === null) {
+                setResult(numberVal);
+            }
+            else {
+                switch (operation) {
+                    case '+': setResult(res + numberVal);
+                        break;
+                    case '-': setResult(res - numberVal);
+                        break;
+                    case '*': setResult(res * numberVal);
+                        break;
+                    case '/': setResult(res / numberVal);
+                        break;
+                }
+            }
+
+        }
+    }
+
+    const displayResult = () => {
+        setDisplay(res.toString());
+    }
+
+    const reset = () => {
+        setResult(0);
+        setOperation(null);
+        setDisplay("");
+    }
+
+    return (
+        <SafeAreaProvider>
+            <SafeAreaView>
+                <Text style={styles.heading}>
+                    Simple Calculator
+                </Text>
+            </SafeAreaView>
+            <SafeAreaView>
+                <Text style={styles.result}>
+                    {display}
+                </Text>
+                <View>
+                    <View style={styles.buttonContainer}>
+                        <Button title="1" onPress={() => calculateResult("1")} />
+                        <Button title="2" onPress={() => calculateResult("2")} />
+                        <Button title="3" onPress={() => calculateResult("3")} />
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button title="4" onPress={() => calculateResult("4")} />
+                        <Button title="5" onPress={() => calculateResult("5")} />
+                        <Button title="6" onPress={() => calculateResult("6")} />
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button title="7" onPress={() => calculateResult("7")} />
+                        <Button title="8" onPress={() => calculateResult("8")} />
+                        <Button title="9" onPress={() => calculateResult("9")} />
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button title="CLEAR" color="red" onPress={() => reset()} />
+                    </View>
+                </View>
+                <View>
+                    <Text style={styles.viewTitle}>
+                        Action Buttons
+                    </Text>
+                    <View style={styles.buttonContainer}>
+                        <Button title="+" color="grey" onPress={() => calculateResult("+")} />
+                        <Button title="-" color="grey" onPress={() => calculateResult("-")} />
+                        <Button title="*" color="grey" onPress={() => calculateResult("*")} />
+                        <Button title="/" color="grey" onPress={() => calculateResult("/")} />
+                        <Button title="=" color="grey" onPress={() => displayResult()} />
+                    </View>
+                </View>
+            </SafeAreaView>
+        </SafeAreaProvider>
+    )
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+    buttonContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        marginBottom: 25,
+
+        ...Platform.select({
+            android: {
+                marginBottom: 10
+            }
+        })
+    },
+    btn: {
+        ...Platform.select({
+            ios: {
+
+            },
+            android: {
+                height: 30,
+                width: 30,
+            }
+        })
+    },
+    actionContainer: {
+
+    },
+    viewTitle: {
+        textAlign: 'center',
+        fontSize: 20,
+        marginBottom: 15,
+    },
+    heading: {
+        fontSize: 30,
+        textAlign: 'center',
+        marginBottom: 30,
+        ...Platform.select({
+            android: {
+                marginTop: 40
+            }
+        })
+    },
+    result: {
+        borderBlockColor: "black",
+        padding: 5,
+        marginBottom: 20,
+        backgroundColor: "green",
+        width: 250,
+        marginLeft: "auto",
+        marginRight: "auto"
+    }
 });
