@@ -36,6 +36,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e6817a7a-2623-4ede-b7eb-ebb570066cc6"
+      }
+    },
+    "owner": "chandanbsd"
   }
 }
