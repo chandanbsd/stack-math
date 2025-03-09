@@ -1,7 +1,8 @@
-import { StyleSheet, Image, Platform, Button, TextInput, SafeAreaView, Text, View } from 'react-native';
+import { StyleSheet, Image, Platform, Button, TextInput, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
+import { rgbaColor } from 'react-native-reanimated/lib/typescript/Colors';
 
 export default function Calculator() {
     const [res, setResult] = useState<number>(0);
@@ -16,11 +17,11 @@ export default function Calculator() {
             setDisplay(display + " " + val + " ");
         }
         else {
-            let numberVal = Number(res * 10 + val);
+            let numberVal = operation == null ? Number(res + val) : Number(res * 10 + val);
 
             if (operation === null) {
                 setResult(numberVal);
-                setDisplay(display);
+                setDisplay(display + val);
             }
             else {
                 setDisplay(display + " " + val + " ");
@@ -51,10 +52,9 @@ export default function Calculator() {
     }
 
     return (
-        <SafeAreaProvider>
+        <SafeAreaProvider style={styles.calculatorContainer}>
             <SafeAreaView>
                 <Text style={styles.heading}>
-                    Simple Calculator
                 </Text>
             </SafeAreaView>
             <SafeAreaView>
@@ -62,44 +62,118 @@ export default function Calculator() {
                     {display}
                 </Text>
                 <View>
-                    <View style={styles.buttonContainer}>
-                        <Button title="1" onPress={() => calculateResult("1")} />
-                        <Button title="2" onPress={() => calculateResult("2")} />
-                        <Button title="3" onPress={() => calculateResult("3")} />
+                    <View style={styles.buttonRow}>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("1")}>
+                            <Text style={styles.numpadBtn}>1</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("2")}>
+                            <Text style={styles.numpadBtn}>2</Text>
+                        </TouchableOpacity>\
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("3")}>
+                            <Text style={styles.numpadBtn}>3</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <Button title="4" onPress={() => calculateResult("4")} />
-                        <Button title="5" onPress={() => calculateResult("5")} />
-                        <Button title="6" onPress={() => calculateResult("6")} />
+                    <View style={styles.buttonRow}>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("4")}>
+                            <Text style={styles.numpadBtn}>4</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("5")}>
+                            <Text style={styles.numpadBtn}>5</Text>
+                        </TouchableOpacity>\
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("6")}>
+                            <Text style={styles.numpadBtn}>6</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <Button title="7" onPress={() => calculateResult("7")} />
-                        <Button title="8" onPress={() => calculateResult("8")} />
-                        <Button title="9" onPress={() => calculateResult("9")} />
+                    <View style={styles.buttonRow}>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("7")}>
+                            <Text style={styles.numpadBtn}>7</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("8")}>
+                            <Text style={styles.numpadBtn}>8</Text>
+                        </TouchableOpacity>\
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("9")}>
+                            <Text style={styles.numpadBtn}>9</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.buttonContainer}>
+                    <View style={styles.buttonRow}>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult(".")}>
+                            <Text style={styles.numpadBtn} >.</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("0")}>
+                            <Text style={styles.numpadBtn}>0</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.buttonRow}>
                         <Button title="CLEAR" color="red" onPress={() => reset()} />
                     </View>
                 </View>
                 <View>
-                    <Text style={styles.viewTitle}>
-                        Action Buttons
-                    </Text>
-                    <View style={styles.buttonContainer}>
-                        <Button title="+" color="grey" onPress={() => calculateResult("+")} />
-                        <Button title="-" color="grey" onPress={() => calculateResult("-")} />
-                        <Button title="*" color="grey" onPress={() => calculateResult("*")} />
-                        <Button title="/" color="grey" onPress={() => calculateResult("/")} />
-                        <Button title="=" color="grey" onPress={() => displayResult()} />
+                    <View style={styles.buttonRow}>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("+")}>
+                            <Text style={styles.numpadBtn}>+</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("-")}>
+                            <Text style={styles.numpadBtn}>-</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("*")}>
+                            <Text style={styles.numpadBtn}>*</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => calculateResult("/")}>
+                            <Text style={styles.numpadBtn}>/</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonContainer}
+                            onPress={() => displayResult()}>
+                            <Text style={styles.numpadBtn}>=</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </SafeAreaView>
-        </SafeAreaProvider>
+        </SafeAreaProvider >
     )
 }
 
 const styles = StyleSheet.create({
-    buttonContainer: {
+    calculatorContainer: {
+        backgroundColor: 'rgba(189, 152, 149)',
+    },
+    numpadBtn: {
+        fontSize: 30,
+        textAlign: "center",
+        marginTop: "auto",
+        marginBottom: "auto"
+    },
+    buttonRow: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
@@ -110,6 +184,15 @@ const styles = StyleSheet.create({
                 marginBottom: 10
             }
         })
+    },
+    buttonContainer: {
+        backgroundColor: "white",
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        alignContent: "center",
+        textAlign: "center",
+        verticalAlign: "middle",
     },
     btn: {
         ...Platform.select({
@@ -141,11 +224,13 @@ const styles = StyleSheet.create({
         })
     },
     result: {
+        fontSize: 45,
         borderBlockColor: "black",
         padding: 5,
         marginBottom: 20,
         backgroundColor: "green",
-        width: 250,
+        width: "90%",
+        height: "20%",
         marginLeft: "auto",
         marginRight: "auto"
     }
