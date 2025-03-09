@@ -52,5 +52,17 @@
     "react-test-renderer": "19.0.0",
     "typescript": "^5.3.3"
   },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "@hookform/resolvers",
+          "moment",
+          "yup"
+        ],
+        "listUnknownPackages": false
+      }
+    }
+  },
   "private": true
 }
