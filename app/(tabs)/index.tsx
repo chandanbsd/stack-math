@@ -9,21 +9,22 @@ export default function Calculator() {
     const [display, setDisplay] = useState<string>("");
 
     const calculateResult = (val: string) => {
-
-        setDisplay(display + " " + val + " ");
-
         let isOperation: boolean = isNaN(Number(val));
 
         if (isOperation) {
             setOperation(val);
+            setDisplay(display + " " + val + " ");
         }
         else {
-            let numberVal = Number(val);
+            let numberVal = Number(res * 10 + val);
 
             if (operation === null) {
                 setResult(numberVal);
+                setDisplay(display);
             }
             else {
+                setDisplay(display + " " + val + " ");
+
                 switch (operation) {
                     case '+': setResult(res + numberVal);
                         break;
