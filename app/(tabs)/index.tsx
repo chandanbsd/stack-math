@@ -1,65 +1,33 @@
-import { StyleSheet, Image, Platform, Button, TextInput, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
+import { Button, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import { rgbaColor } from 'react-native-reanimated/lib/typescript/Colors';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function Calculator() {
-    const [res, setResult] = useState<number>(0);
-    const [operation, setOperation] = useState<string | null>(null);
-    const [display, setDisplay] = useState<string>("");
+    const [exp, setExp] = useState<string>("");
 
     const calculateResult = (val: string) => {
-        let isOperation: boolean = isNaN(Number(val));
-
-        if (isOperation) {
-            setOperation(val);
-            setDisplay(display + " " + val + " ");
-        }
-        else {
-            let numberVal = operation == null ? Number(res + val) : Number(res * 10 + val);
-
-            if (operation === null) {
-                setResult(numberVal);
-                setDisplay(display + val);
-            }
-            else {
-                setDisplay(display + " " + val + " ");
-
-                switch (operation) {
-                    case '+': setResult(res + numberVal);
-                        break;
-                    case '-': setResult(res - numberVal);
-                        break;
-                    case '*': setResult(res * numberVal);
-                        break;
-                    case '/': setResult(res / numberVal);
-                        break;
-                }
-            }
-
-        }
+        setExp(exp + val);
     }
 
     const displayResult = () => {
-        setDisplay(res.toString());
+        setExp(eval(exp))
     }
 
     const reset = () => {
-        setResult(0);
-        setOperation(null);
-        setDisplay("");
+        setExp("");
     }
 
     return (
         <SafeAreaProvider style={styles.calculatorContainer}>
             <SafeAreaView>
                 <Text style={styles.heading}>
+                    A Simple Calculator
                 </Text>
             </SafeAreaView>
             <SafeAreaView>
                 <Text style={styles.result}>
-                    {display}
+                    {exp}
                 </Text>
                 <View>
                     <View style={styles.buttonRow}>
