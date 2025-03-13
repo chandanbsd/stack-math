@@ -8,12 +8,9 @@
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m1-medium",
-        "autoIncrement": true
+        "resourceClass": "m1-medium"
       },
-      "android": {
-        "autoIncrement": true
-      }
+      "android": {}
     },
     "preview": {
       "distribution": "internal",
