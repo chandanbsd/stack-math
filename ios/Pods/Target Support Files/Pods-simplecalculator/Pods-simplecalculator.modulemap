@@ -1,6 +1,0 @@
-module Pods_simplecalculator {
-  umbrella header "Pods-simplecalculator-umbrella.h"
-
-  export *
-  module * { export * }
-}
