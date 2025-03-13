@@ -2,7 +2,7 @@
   "expo": {
     "name": "simple-calculator",
     "slug": "simple-calculator",
-    "version": "0.0.2",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -13,14 +13,16 @@
       "bundleIdentifier": "com.chandanbsd.simplecalculator",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "buildNumber": "5"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.chandanbsd.simplecalculator"
+      "package": "com.chandanbsd.simplecalculator",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
