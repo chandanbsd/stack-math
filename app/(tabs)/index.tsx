@@ -40,7 +40,7 @@ export default function Calculator() {
                             style={styles.buttonContainer}
                             onPress={() => calculateResult("2")}>
                             <Text style={styles.numpadBtn}>2</Text>
-                        </TouchableOpacity>\
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.buttonContainer}
                             onPress={() => calculateResult("3")}>
@@ -57,7 +57,7 @@ export default function Calculator() {
                             style={styles.buttonContainer}
                             onPress={() => calculateResult("5")}>
                             <Text style={styles.numpadBtn}>5</Text>
-                        </TouchableOpacity>\
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.buttonContainer}
                             onPress={() => calculateResult("6")}>
@@ -74,7 +74,7 @@ export default function Calculator() {
                             style={styles.buttonContainer}
                             onPress={() => calculateResult("8")}>
                             <Text style={styles.numpadBtn}>8</Text>
-                        </TouchableOpacity>\
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.buttonContainer}
                             onPress={() => calculateResult("9")}>
@@ -95,6 +95,7 @@ export default function Calculator() {
                     </View>
                     <View style={styles.buttonRow}>
                         <Button title="CLEAR" color="red" onPress={() => reset()} />
+                        <Button title="X" color="yellow" onPress={() => reset()} />
                     </View>
                 </View>
                 <View>
