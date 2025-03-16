@@ -11,11 +11,21 @@ export default function Calculator() {
     }
 
     const displayResult = () => {
-        setExp(eval(exp))
+        let res: number = 0;
+        try {
+            res = eval(exp);
+            setExp(eval(exp))
+        } catch (err) {
+            alert("Incorrect expression");
+        }
     }
 
     const reset = () => {
         setExp("");
+    }
+
+    const removeRecent = () => {
+        setExp(exp.substring(0, exp.length - 1));
     }
 
     return (
@@ -95,7 +105,7 @@ export default function Calculator() {
                     </View>
                     <View style={styles.buttonRow}>
                         <Button title="CLEAR" color="red" onPress={() => reset()} />
-                        <Button title="X" color="yellow" onPress={() => reset()} />
+                        <Button title="UNDO" color="yellow" onPress={() => removeRecent()} />
                     </View>
                 </View>
                 <View>
