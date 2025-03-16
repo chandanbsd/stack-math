@@ -40,7 +40,4 @@ app-example
 *.aab
 *.ipa
 
-ios/
-android/
-
 .vscode/
