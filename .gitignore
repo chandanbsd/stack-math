@@ -38,7 +38,7 @@ yarn-error.*
 app-example
 
 *.aab
-.ipa
+*.ipa
 
 ios/
 android/
