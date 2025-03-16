@@ -351,20 +351,6 @@ const RetroCalculator = () => {
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor="#f8e3b4" />
             <View style={styles.calculator}>
-                <View style={styles.tabs}>
-                    <TabButton
-                        active={activeTab === 'calculator'}
-                        onPress={() => setActiveTab('calculator')}
-                    >
-                        Calculator
-                    </TabButton>
-                    <TabButton
-                        active={activeTab === 'history'}
-                        onPress={() => setActiveTab('history')}
-                    >
-                        History
-                    </TabButton>
-                </View>
 
                 {activeTab === 'calculator' ? (
                     <>
@@ -454,6 +440,21 @@ const RetroCalculator = () => {
                         )}
                     </View>
                 )}
+
+                <View style={styles.tabs}>
+                    <TabButton
+                        active={activeTab === 'calculator'}
+                        onPress={() => setActiveTab('calculator')}
+                    >
+                        Calculator
+                    </TabButton>
+                    <TabButton
+                        active={activeTab === 'history'}
+                        onPress={() => setActiveTab('history')}
+                    >
+                        History
+                    </TabButton>
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -465,11 +466,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8e3b4', // amber-50 equivalent
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 16,
     },
     calculator: {
         width: '100%',
-        maxWidth: 350,
+        height: '100%',
         backgroundColor: '#f5d787', // amber-100 equivalent
         borderRadius: 12,
         padding: 24,
@@ -481,7 +481,7 @@ const styles = StyleSheet.create({
     },
     tabs: {
         flexDirection: 'row',
-        marginBottom: 16,
+        marginTop: 50,
         borderRadius: 8,
         overflow: 'hidden',
         borderWidth: 1,
@@ -618,7 +618,7 @@ const styles = StyleSheet.create({
         color: '#ffffff',
     },
     historyContainer: {
-        minHeight: 350,
+        height: '78%'
     },
     historyList: {
         maxHeight: 350,
