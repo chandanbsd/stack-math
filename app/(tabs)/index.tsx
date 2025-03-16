@@ -621,7 +621,7 @@ const styles = StyleSheet.create({
         height: '78%'
     },
     historyList: {
-        maxHeight: 350,
+        height: "100%",
         marginBottom: 16,
     },
     historyListContent: {
