@@ -354,7 +354,7 @@ const RetroCalculator = () => {
 
                 {activeTab === 'calculator' ? (
                     <>
-                        <View style={styles.displayContainer}>
+                        <View>
                             <View style={styles.displayHeader}>
                                 <Text style={styles.displayLabel}>RETRO CALC</Text>
                                 {memory !== null && (
@@ -468,6 +468,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     calculator: {
+        display: "flex",
+        justifyContent: "space-between",
         width: '100%',
         height: '100%',
         backgroundColor: '#f5d787', // amber-100 equivalent
@@ -508,9 +510,6 @@ const styles = StyleSheet.create({
     },
     inactiveTabButtonText: {
         color: '#92400e', // amber-800 equivalent
-    },
-    displayContainer: {
-        marginBottom: 24,
     },
     displayHeader: {
         flexDirection: 'row',
@@ -567,7 +566,7 @@ const styles = StyleSheet.create({
     },
     button: {
         flex: 1,
-        height: 56,
+        height: 65,
         borderRadius: 6,
         justifyContent: 'center',
         alignItems: 'center',
