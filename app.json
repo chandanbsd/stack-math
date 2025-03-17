@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "simple-calculator",
+    "notification": false,
     "slug": "simple-calculator",
     "version": "2",
     "orientation": "portrait",
