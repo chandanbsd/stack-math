@@ -356,7 +356,6 @@ const RetroCalculator = () => {
                     <>
                         <View>
                             <View style={styles.displayHeader}>
-                                <Text style={styles.displayLabel}>RETRO CALC</Text>
                                 {memory !== null && (
                                     <Text style={styles.memoryIndicator}>M</Text>
                                 )}
