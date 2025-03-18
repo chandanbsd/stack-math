@@ -1,34 +1,21 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import * as React from 'react';
+import { Surface, Text } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+const MathNotes = () => (
+    <Surface style={styles.surface}>
+        <Text>Surface</Text>
+    </Surface>
+);
 
-export default function MathNotes() {
-    const colorScheme = useColorScheme();
+export default MathNotes;
 
-    return (
-        <Tabs
-            screenOptions={{
-                tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-                headerShown: false,
-                tabBarStyle: Platform.select({
-                    ios: {
-                        // Use a transparent background on iOS to show the blur effect
-                        position: 'absolute',
-                    },
-                    default: {},
-                }),
-            }}>
-            <Tabs.Screen
-                name="index"
-                options={{
-                    title: 'Calculator',
-                    tabBarIcon: ({ color }) => <MaterialIcons size={28} color={color} />,
-                }}
-            />
-        </Tabs>
-    );
-}
+const styles = StyleSheet.create({
+    surface: {
+        padding: 8,
+        paddingTop: 20,
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
