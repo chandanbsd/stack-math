@@ -26,7 +26,6 @@
       "package": "com.chandanbsd.simplecalculator",
       "permissions": [],
       "blockedPermissions": [
-        "android.permission.INTERNET",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.SYSTEM_ALERT_WINDOW",
         "android.permission.VIBRATE",
