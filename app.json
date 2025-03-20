@@ -3,7 +3,7 @@
     "name": "simple-calculator",
     "notification": false,
     "slug": "simple-calculator",
-    "version": "2",
+    "version": "3",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
@@ -16,7 +16,7 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
-      "buildNumber": "7"
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
