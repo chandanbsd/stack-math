@@ -1,21 +1,136 @@
 import * as React from 'react';
-import { Surface, Text } from 'react-native-paper';
+import { Appbar, Button, Card, Chip, Surface, Text, TextInput } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { ScrollView } from 'react-native';
+import { evaluate } from 'mathjs';
+import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
 
-const MathNotes = () => (
-    <Surface style={styles.surface}>
-        <Text>Surface</Text>
-    </Surface>
-);
+
+interface Expression {
+    id: number,
+    input: string,
+    output: number | null,
+    error: string | null;
+}
+
+const MathNotes = () => {
+
+    const [expressionList, setExpressionList] = useState<Expression[]>([]);
+
+    const [expression, setExpression] = useState<string>("");
+
+    const updateExpression = (val: string, id: number) => {
+        setExpressionList(expressionList.map(exp => {
+            if (exp.id === id) {
+                return { ...exp, input: val };
+            } else {
+                return exp;
+            }
+        }));
+    };
+
+    const addExpression = () => {
+        const newExpression: Expression = {
+            id: expressionList.length + 1,
+            input: "",
+            output: null,
+            error: null,
+        };
+
+        setExpressionList([...expressionList, newExpression]);
+    };
+
+    const deleteExpression = (id: number) => {
+        let newExpList: Array<Expression> = expressionList.filter(exp => exp.id !== id)
+        setExpressionList([...newExpList]);
+    };
+
+    const evaluateExpression = (id: number) => {
+        setExpressionList(expressionList.map(exp => {
+            if (exp.id === id) {
+                let output: number | null = 0;
+                let error: string | null = null;
+                try {
+                    output = evaluate(exp.input);
+                    if (output == null) {
+                        error = "Invalid expression";
+                    }
+                    else {
+                        error = null;
+                    }
+                } catch (error) {
+                    output = null;
+                }
+                return { ...exp, output, error };
+
+            } else {
+                return exp;
+            }
+        }));
+    };
+
+    return (
+        <Surface>
+            <Appbar.Header>
+                <Appbar.Content color='purple' title="Simple Super Math" />
+            </Appbar.Header>
+            <ScrollView style={styles.mainScrollView}>
+
+                <Surface style={styles.surface}>
+                    {
+                        expressionList.map((exp) => (
+                            <Card style={styles.card} key={exp.id}>
+                                <Card.Content style={styles.CardContent}>
+                                    <TextInput
+                                        label="Enter expression"
+                                        onChangeText={(text) => updateExpression(text, exp.id)}
+                                    />
+                                    <Chip icon="calculator" >Result = {exp.output}</Chip>
+
+                                </Card.Content>
+                                <Card.Actions>
+                                    <Button onPress={() => deleteExpression(exp.id)} icon="trash-can">Delete</Button>
+                                    <Button onPress={() => evaluateExpression(exp.id)}>Calculate</Button>
+                                </Card.Actions>
+                            </Card>
+                        ))
+                    }
+
+                    <Button style={styles.mainAction} mode="contained" icon="plus" onPress={() => addExpression()}>Add Expression</Button>
+                </Surface >
+            </ScrollView>
+        </Surface>
+    );
+}
 
 export default MathNotes;
 
 const styles = StyleSheet.create({
+    mainScrollView: {
+    },
     surface: {
-        padding: 8,
-        paddingTop: 20,
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 10,
+
     },
+    error: {
+        color: "red"
+    },
+    result: {
+        color: "green"
+    },
+    card: {
+        marginBottom: 20,
+        width: '90%'
+    },
+    CardContent: {
+        display: 'flex',
+    },
+    mainAction: {
+        marginBottom: 30,
+        marginTop: 30
+    }
 });
