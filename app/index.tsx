@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Appbar, Button, Card, Chip, Surface, Text, TextInput } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import { useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
 import { evaluate } from 'mathjs';
 import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
 interface Expression {
@@ -71,50 +72,58 @@ const MathNotes = () => {
     };
 
     return (
-        <Surface>
+        <>
             <Appbar.Header>
-                <Appbar.Content color='purple' title="Simple Super Math" />
+                <Appbar.Content color='purple' title="Stack Math" />
             </Appbar.Header>
-            <ScrollView style={styles.mainScrollView}>
+            <SafeAreaProvider >
 
-                <Surface style={styles.surface}>
-                    {
-                        expressionList.map((exp) => (
-                            <Card style={styles.card} key={exp.id}>
-                                <Card.Content style={styles.CardContent}>
-                                    <TextInput
-                                        label="Enter expression"
-                                        onChangeText={(text) => updateExpression(text, exp.id)}
-                                    />
-                                    <Chip icon="calculator" >Result = {exp.output}</Chip>
+                <SafeAreaView style={styles.container}>
+                    <ScrollView style={styles.mainScrollView}>
 
-                                </Card.Content>
-                                <Card.Actions>
-                                    <Button onPress={() => deleteExpression(exp.id)} icon="trash-can">Delete</Button>
-                                    <Button onPress={() => evaluateExpression(exp.id)}>Calculate</Button>
-                                </Card.Actions>
-                            </Card>
-                        ))
-                    }
+                        <Surface style={styles.surface}>
+                            {
+                                expressionList.map((exp) => (
+                                    <Card style={styles.card} key={exp.id}>
+                                        <Card.Content style={styles.CardContent}>
+                                            <TextInput
+                                                label="Enter expression"
+                                                onChangeText={(text) => updateExpression(text, exp.id)}
+                                            />
+                                            <Chip icon="calculator" >Result = {exp.output}</Chip>
 
-                    <Button style={styles.mainAction} mode="contained" icon="plus" onPress={() => addExpression()}>Add Expression</Button>
-                </Surface >
-            </ScrollView>
-        </Surface>
+                                        </Card.Content>
+                                        <Card.Actions>
+                                            <Button onPress={() => deleteExpression(exp.id)} icon="trash-can">Delete</Button>
+                                            <Button onPress={() => evaluateExpression(exp.id)}>Calculate</Button>
+                                        </Card.Actions>
+                                    </Card>
+                                ))
+                            }
+
+                            <Button style={styles.mainAction} mode="contained" icon="plus" onPress={() => addExpression()}>Add Expression</Button>
+                        </Surface >
+                    </ScrollView>
+                </SafeAreaView>
+            </SafeAreaProvider>
+        </>
     );
 }
 
 export default MathNotes;
 
 const styles = StyleSheet.create({
+    container: {
+
+        flex: 1,
+        paddingTop: StatusBar.currentHeight,
+    },
     mainScrollView: {
     },
     surface: {
-        height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
-
     },
     error: {
         color: "red"
