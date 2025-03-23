@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { Appbar, Button, Card, Chip, Surface, Text, TextInput } from 'react-native-paper';
-import { AppState, StyleSheet } from 'react-native';
+import { AppState, StyleSheet, AsyncStorage } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { ScrollView, StatusBar } from 'react-native';
 import { evaluate } from 'mathjs';
 import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
