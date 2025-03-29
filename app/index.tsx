@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Appbar, Button, Card, Chip, Surface, Text, TextInput } from 'react-native-paper';
-import { AppState, StyleSheet, AsyncStorage } from 'react-native';
+import { AppState, StyleSheet } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { ScrollView, StatusBar } from 'react-native';
 import { evaluate } from 'mathjs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { BlurView } from "@react-native-community/blur";
 
 
 
@@ -34,29 +36,26 @@ const MathNotes = () => {
     };
 
     useEffect(() => {
-        const subscription = AppState.addEventListener('change', nextAppState => {
-            if (
-                appState.current.match(/inactive|background/) &&
-                nextAppState === 'active'
-            ) {
+        const example = async () => {
+            const res = await getMyObject();
+            setExpression(res);
+        }
 
-                Promise.resolve(getMyObject())
-                    .then(res => setExpressionList(res));
-
-            }
-            else {
-                setObjectValue(expressionList);
-            }
-        });
-
-        return () => {
-            subscription.remove();
-        };
     }, []);
+
+    useEffect(() => {
+
+        const loadData = async () => {
+            setObjectValue()
+        };
+
+        loadData();
+
+    }, [expressionList]);
 
     const getMyObject = async () => {
         try {
-            const jsonValue = await AsyncStorage.getItem('@stack-calc-values')
+            const jsonValue = await AsyncStorage.getItem('stack-calc-values')
             return jsonValue != null ? JSON.parse(jsonValue) : null
         } catch (e) {
             // read error
@@ -65,9 +64,9 @@ const MathNotes = () => {
         console.log('Done.')
     }
 
-    const setObjectValue = async (value: Expression[]) => {
+    const setObjectValue = async () => {
         try {
-            const jsonValue = JSON.stringify(value)
+            const jsonValue = JSON.stringify(expressionList)
             await AsyncStorage.setItem('stack-calc-values', jsonValue)
         } catch (e) {
             // save error
@@ -130,6 +129,7 @@ const MathNotes = () => {
                             {
                                 expressionList.map((exp) => (
                                     <Card style={styles.card} key={exp.id}>
+
                                         <Card.Content style={styles.CardContent}>
                                             <TextInput
                                                 label="Enter expression"
@@ -149,8 +149,8 @@ const MathNotes = () => {
                             <Button style={styles.mainAction} mode="contained" icon="plus" onPress={() => addExpression()}>Add Expression</Button>
                         </Surface >
                     </ScrollView>
-                </SafeAreaView>
-            </SafeAreaProvider>
+                </SafeAreaView >
+            </SafeAreaProvider >
         </>
     );
 }
@@ -159,11 +159,11 @@ export default MathNotes;
 
 const styles = StyleSheet.create({
     container: {
-
         flex: 1,
         paddingTop: StatusBar.currentHeight,
     },
     mainScrollView: {
+
     },
     surface: {
         alignItems: 'center',

@@ -21,7 +21,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   }
 }
 
-rootProject.name = 'simple-calculator'
+rootProject.name = 'Stack Math'
 
 dependencyResolutionManagement {
   versionCatalogs {
