@@ -130,7 +130,7 @@ const MathNotes = () => {
 
     return (
         <>
-            <Appbar.Header style={{ backgroundColor: "grey" }}>
+            <Appbar.Header>
                 <Icon source="calculator" size={20} />
                 <Appbar.Content title="Stack Math" />
                 <Icon source="calculator" size={20} />
@@ -197,7 +197,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         padding: 10,
-        backgroundColor: "black",
     },
     error: {
         color: "red",
